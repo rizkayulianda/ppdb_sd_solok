@@ -42,6 +42,14 @@
                                     <td>{{ $p->nama_zonasi }}</td>
                                 </tr>
                                 <tr>
+                                    <th>Kuota Utama : </th>
+                                    <td>{{ $p->utama }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Kuota cadangan : </th>
+                                    <td>{{ $p->cadangan }}</td>
+                                </tr>
+                                <tr>
                                     <th>Email Sekolah : </th>
                                     <td>{{ $p->email_sekolah }}</td>
                                 </tr>

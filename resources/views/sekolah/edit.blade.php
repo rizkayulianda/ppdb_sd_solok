@@ -56,8 +56,16 @@
                       </div>
 
                     <div class="form-group">
+                        <label for="inputKuota">Kuota Dibutuhkan</label>
+                        <input type="number" name="utama" value="{{ $p->utama }}" class="form-control" id="inputKuota" required >
+                    </div>
+                    <div class="form-group">
+                        <label for="inputCadangan"> Kuota Cadangan</label>
+                        <input type="number" name="cadangan" value="{{ $p->cadangan }}" class="form-control" id="inputCadangan" required>
+                    </div>
+                    <div class="form-group">
                         <label for="inputEmailSekolah"> Email Sekolah</label>
-                        <input type="email" name="email_sekolah" value="{{ $p->email_sekolah }}" class="form-control" id="email_sekolah" placeholder="Masukkan Email Sekolah" readonly>
+                        <input type="text" name="email_sekolah"  value="{{ $p->email_sekolah }}" class="form-control" id="email_sekolah" >
                     </div>
                     <div class="form-group">
                         <label for="inputWebSekolah"> Web Sekolah</label>
@@ -65,7 +73,7 @@
                     </div>
                     <div class="form-group">
                         <label for="inputNotelpSekolah"> Nomor Telpon Sekolah</label>
-                        <input type="text" name="notelp_sekolah" value="{{ $p->notelp_sekolah }}" class="form-control" id="notelp_sekolah" placeholder="Masukkan Nomor Telpon Sekolah">
+                        <input type="number" name="notelp_sekolah" value="{{ $p->notelp_sekolah }}" class="form-control" id="notelp_sekolah" placeholder="Masukkan Nomor Telpon Sekolah">
                     </div>
                     <div class="form-group">
                         <label for="inputKepalaSekolah"> Kepala Sekolah</label>

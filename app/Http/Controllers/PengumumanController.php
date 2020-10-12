@@ -15,7 +15,6 @@ class PengumumanController extends Controller
         $pengumuman=DB::table('pengumuman')
         ->join('calon_siswa','pengumuman.nik_siswa','=','calon_siswa.nik_siswa')
         ->join('sekolah','pengumuman.kd_sekolah','=','sekolah.kd_sekolah')
-        ->select('pengumuman.no_pendaftaran','calon_siswa.nama_siswa','pengumuman.tanggal_pendaftaran','sekolah.nama_sekolah')
         ->where('pengumuman.kd_sekolah',$kd_sekolah)
         ->get();
         return view('pengumuman.indexop',['pengumuman' => $pengumuman]);
@@ -47,8 +46,7 @@ class PengumumanController extends Controller
         $pengumuman=DB::table('pengumuman')
         ->join('calon_siswa','pengumuman.nik_siswa','=','calon_siswa.nik_siswa')
         ->join('sekolah','pengumuman.kd_sekolah','=','sekolah.kd_sekolah')
-        ->select('pengumuman.no_pendaftaran','calon_siswa.nama_siswa','pengumuman.tanggal_pendaftaran','sekolah.nama_sekolah')
-        ->where('sekolah.nama_sekolah', 'LIKE', "%{$keyword}%")
+        ->where('pengumuman.no_pendaftaran', 'LIKE', "%{$keyword}%")
         ->get();
         //mengirim hasil pencarian ke biew indexuser.blade(hasilpencarian)
         return view('pengumuman.indexuser',['pengumuman' => $pengumuman], ['keyword' => $keyword]);
@@ -61,7 +59,7 @@ class PengumumanController extends Controller
         ->join('calon_siswa','pengumuman.nik_siswa','=','calon_siswa.nik_siswa')
         ->join('sekolah','pengumuman.kd_sekolah','=','sekolah.kd_sekolah')
         ->select('pengumuman.no_pendaftaran','calon_siswa.nama_siswa','pengumuman.tanggal_pendaftaran','sekolah.nama_sekolah')
-        ->where('sekolah.nama_sekolah', 'LIKE', "%{$kw}%")
+        ->where('pengumuman.no_pendaftaran', 'LIKE', "%{$kw}%")
         ->get();
         $data_pengumuman = PDF::loadview('pengumuman.cetak',['pengumuman' => $pengumuman])->setPaper('A4','potrait');
         return $data_pengumuman->stream('hasil pengumuman.pdf');
@@ -75,7 +73,7 @@ class PengumumanController extends Controller
         $pengumuman=DB::table('pengumuman')
         ->join('calon_siswa','pengumuman.nik_siswa','=','calon_siswa.nik_siswa')
         ->join('sekolah','pengumuman.kd_sekolah','=','sekolah.kd_sekolah')
-        ->where('sekolah.kd_sekolah', '=',$kd_sekolah)
+        ->where('sekolah.kd_sekolah','=',$kd_sekolah)
         ->get();
         $sekolah=DB::table('sekolah')->where('kd_sekolah',$kd_sekolah)->get();
         $data_pengumuman = PDF::loadview('pengumuman.cetakop',['pengumuman' => $pengumuman],['sekolah'=>$sekolah])->setPaper('A4','potrait');

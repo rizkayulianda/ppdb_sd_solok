@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use PDF;
 use File;
+use DateTime;
 
 class PendaftaranController extends Controller
 {
@@ -42,6 +43,8 @@ class PendaftaranController extends Controller
             'calon_siswa.long_siswa',
             'pendaftaran.tanggal_pendaftaran',
             'sekolah.kd_sekolah',
+            'pendaftaran.umur',
+            'pendaftaran.jarak',
             'pendaftaran.status',
             'pendaftaran.id'
             )
@@ -136,6 +139,8 @@ class PendaftaranController extends Controller
         // return view('pendaftaran.create', compact('sekolah','calon_siswa'));
     }
 
+    public function
+
     public function cetakData($nik_siswa) //untuk cetak bukti pendaftaran calon siswa
     {
         $no_kk=session()->get('no_kk');
@@ -160,30 +165,72 @@ class PendaftaranController extends Controller
 
     public function store(Request $request)
     {                   
-        //generate no pendaftaran
-        $b1 = mt_rand(1000,9999); //membuat angka random 4 digit
-        $b2 = date('Ashi'); //tanggal format terbalik
-        $no_pendaftaran = 'PDFT-'.$b1.'-'.$b2; //memasukkan no_pendaftaran berdasarkan no random dan jam input
-    
-        //status
-        $status = 'Mendaftar';
-    
-        //insert ke table
-        DB::table('pendaftaran')->insert([
-            'no_pendaftaran' => $no_pendaftaran,
-            'nik_siswa' => $request->nik_siswa,
-            'kd_sekolah' => $request->kd_sekolah,
-            // 'jarak' => $request->jarak,
-            'status' => $status
-        ]);
-        // alihkan halaman ke halaman pendaftaran
-        return redirect('/pendaftaran/data/'.$request->nik_siswa);
+        //jumlah cadangan dan kuota yang dibutuhkan sekolah yng sdg di proses
+        $utama=$request->utama;
+        $cadangan=$request->cadangan;
+        $jkuota=$utama+$cadangan;//menambahkan kuota utama dan cadangan
+        
+        //mengecek di database jumlah kuota pendaftar di sekolah yang diproses
+        $kd_sekolah=$request->kd_sekolah;
+        $jkuota_masuk=Pendaftaran::where('kd_sekolah',$kd_sekolah)->count();
+        
+        //mengambil jumlah kuota yang berstatus diterima
+        $utama_masuk=Pendaftaran::where('kd_sekolah',$kd_sekolah)->where('status','Diterima')->count();
+        
+        //mendapatkan jarak 
+        $jaraks=$request->jarak;
+        
+        if($jkuota_masuk>=$jkuota)//jika total kuota
+        {
+            $request->session()->flash('peringatan','maaf, kuota sekolah yang anda pilih sudah penuh, silahkan mendaftar di sekolah lain dengan jarak terdekat');
+            return redirect()->back();
+        }
+        else
+        {
+            // if($jaraks<=3000)
+            if($jaraks<=3000 && $utama_masuk<$utama)
+            {
+                $status = 'Diterima';
+            } 
+            else
+            {
+                $status = 'Cadangan';
+            }
+
+            //generate no pendaftaran {
+            $b1 = mt_rand(1000,9999); //membuat angka random 4 digit
+            $b2 = date('Ashi'); //tanggal format terbalik
+            $no_pendaftaran = 'PDFT-'.$b1.'-'.$b2; //memasukkan no_pendaftaran berdasarkan no random dan jam input
+            //}
+            
+            //menghitung umur siswa
+            $tgl_lahir=$request->tanggal_lahir;
+            $umur=$this->getUmur($tgl_lahir);
+            
+            //mendapatkan tanggal sekarang
+            $tanggal_pendaftaran=date('m-d-Y');
+
+            //insert ke table
+            DB::table('pendaftaran')->insert([
+                'no_pendaftaran' => $no_pendaftaran,
+                'nik_siswa' => $request->nik_siswa,
+                'kd_sekolah' => $request->kd_sekolah,
+                'jarak' => $jaraks,
+                'umur' => $umur,
+                'status' => $status,
+                'tanggal_pendaftaran' => $tanggal_pendaftaran
+            ]);
+
+            //redirect halaman pendaftaran
+            return redirect('/pendaftaran/data/'.$request->nik_siswa);
+        }
     }
 
     public function hapus($id)
     {
         $kd_sekolah_login=auth()->user()->kd_sekolah;
         $hh_kd_sekolah=Pendaftaran::where('kd_sekolah',$kd_sekolah_login)->where('no_pendaftaran',$id)->count();
+        
         if ($hh_kd_sekolah==0) {
             session()->flash('peringatan','Permintaan tidak dapat diproses!');
             return redirect()->back();
@@ -209,7 +256,6 @@ class PendaftaranController extends Controller
         DB::table('pendaftaran')->where('no_pendaftaran',$id)->update([
             'status' => "Diterima"
         ]);
-
         return redirect('/pendaftaran');
     }
 
@@ -219,16 +265,14 @@ class PendaftaranController extends Controller
         //menghapus data yang ada terlebih dahulu
         DB::table('pengumuman')->where('kd_sekolah',$kd_sekolah)->delete();
         //mengambil data yang diselect berdasarkan kd_sekolah yang sedang login, dan yang statusnya diterima
-        $pendaftaran=Pendaftaran::select('no_pendaftaran','nik_siswa','tanggal_pendaftaran','kd_sekolah')
+        $pendaftaran=Pendaftaran::select('no_pendaftaran','nik_siswa','tanggal_pendaftaran','kd_sekolah','umur','jarak','status')
             ->where('kd_sekolah',$kd_sekolah)
-            ->where('status','=','Diterima')
             ->get()->toArray();
         //membuat perulangan berdasarkan data yang telah di ambil sebelumnya untuk menginsert ke tabel pengumuman
         foreach ($pendaftaran as $d)
         {
             Pengumuman::insert($d);
         }
-
         return redirect('/pengumuman/indexop');
     }
 
@@ -244,5 +288,30 @@ class PendaftaranController extends Controller
         $kilometers = $miles * 1.609344;
         $meters = $kilometers * 1000;
         return round($meters); 
+    }
+    
+    public function getUmur($bday)
+    {//fungsi untuk menghitung umur berdasarkan tanggal lahir 
+        $bdays = new DateTime($bday);
+        $today = new Datetime(date('m-d-Y'));
+        $diff = $today->diff($bdays);
+        $age=$diff->y;
+        return $age;
+    }
+
+    public static function getTotSekolah()
+    {
+        return Sekolah::count();
+    }
+
+    public static function getTotPendaftar()
+    {
+        return Pendaftaran::where('status','Diterima')->count();
+    }
+
+    public static function getMyPendaftar()
+    {
+        $kd_sekolah=auth()->user()->kd_sekolah;
+        return Pendaftaran::where('kd_sekolah',$kd_sekolah)->count();
     }
 }

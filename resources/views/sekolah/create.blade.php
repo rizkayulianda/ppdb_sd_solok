@@ -47,7 +47,14 @@
                   <input type="text" id="lat" name="lat_sekolah" aria-label="Pilih alamat pada peta" class="form-control">
                   <input type="text" id="lng" name="long_sekolah" aria-label="Pilih alamat pada peta" class="form-control">
                 </div>
-
+                <div class="form-group">
+                    <label for="inputKuota">Kuota Dibutuhkan</label>
+                    <input type="number" name="utama" class="form-control" id="inputKuota" placeholder="Masukkan kuota yang dibutuhkan" required >
+                </div>
+                <div class="form-group">
+                    <label for="inputCadangan"> Kuota Cadangan</label>
+                    <input type="number" name="cadangan" class="form-control" id="inputCadangan" placeholder="Masukkan kuota cadangan" required>
+                </div>
                 <div class="form-group">
                     <label for="inputEmailSekolah"> Email Sekolah/Operator</label>
                     <input type="email" name="email_sekolah" class="form-control" id="email_sekolah" value="{{auth()->user()->email_op}}" readonly>

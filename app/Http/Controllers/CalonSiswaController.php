@@ -10,6 +10,7 @@ use App\Zonasi;
 use App\Pendaftaran;
 use Illuminate\Support\Facades\Input;
 use File;
+use DateTime;
 
 class CalonSiswaController extends Controller
 {
@@ -93,6 +94,7 @@ class CalonSiswaController extends Controller
 
     public function update(Request $request, $id)
     {
+
         $calon_siswa = CalonSiswa::find($id);
         $calon_siswa->nama_siswa = $request->input('nama_siswa');
         $calon_siswa->tempat_lahir = $request->input('tempat_lahir');
@@ -159,70 +161,83 @@ class CalonSiswaController extends Controller
 
     public function store(Request $request)
     {   
-        $calon_siswas = new CalonSiswa();
-        $calon_siswas->id = $request->input('id');
-        if ($request->hasFile('image_kk'))
+        $date= $request->input('tanggal_lahir');
+        $bday = new DateTime($date);
+        $today = new Datetime(date('m-d-Y'));
+        $diff = $today->diff($bday);
+        $age=$diff->y;
+        if($age>12 || $age<6)
         {
-            $file = $request->file('image_kk');
-            $extension = $file->getClientOriginalName();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/image_kk', $filename);
-            $calon_siswas->image_kk = $filename;
-        }
-        if ($request->hasFile('image_akte'))
-        {
-            $file = $request->file('image_akte');
-            $extension = $file->getClientOriginalName();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/image_akte', $filename);
-            $calon_siswas->image_akte = $filename;
-        }
-        if ($request->hasFile('image_ijazah_tk'))
-        {
-            $file = $request->file('image_ijazah_tk');
-            $extension = $file->getClientOriginalName();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/image_ijazah_tk', $filename);
-            $calon_siswas->image_ijazah_tk = $filename;
-        }
-        if ($request->hasFile('image_pasfoto'))
-        {
-            $file = $request->file('image_pasfoto');
-            $extension = $file->getClientOriginalName();
-            $filename = time() . '.' . $extension;
-            $file->move('uploads/image_pasfoto', $filename);
-            $calon_siswas->image_pasfoto = $filename;
+            $request->session()->flash('peringatan','mohon maaf, umur anda tidak sesuai kriteria');
+            return redirect()->back();
         }
         else
-        {
-            return $request;
-            $calon_siswas->image_kk = '';
-            $calon_siswas->image_akte = '';
-            $calon_siswas->image_ijazah_tk = '';
-            $calon_siswas->image_pasfoto = '';
-        }
-        
-        $calon_siswas->nama_siswa = $request->input('nama_siswa');
-        $calon_siswas->tempat_lahir = $request->input('tempat_lahir');
-        $calon_siswas->tanggal_lahir = $request->input('tanggal_lahir');
-        $calon_siswas->alamat_siswa = $request->input('alamat_siswa');
-        $calon_siswas->kd_zonasi = $request->input('kd_zonasi');
-        $calon_siswas->lat_siswa = $request->input('lat_siswa');
-        $calon_siswas->long_siswa = $request->input('long_siswa');
-        $calon_siswas->jenis_kelamin = $request->input('jenis_kelamin');
-        $calon_siswas->pendidikan_sebelumnya = $request->input('pendidikan_sebelumnya');
-        $calon_siswas->nik_siswa = $request->input('nik_siswa');
-        $calon_siswas->no_kk = $request->input('no_kk');
+        {   
+            $calon_siswas = new CalonSiswa();
+            $calon_siswas->id = $request->input('id');
+            if ($request->hasFile('image_kk'))
+            {
+                $file = $request->file('image_kk');
+                $extension = $file->getClientOriginalName();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/image_kk', $filename);
+                $calon_siswas->image_kk = $filename;
+            }
+            if ($request->hasFile('image_akte'))
+            {
+                $file = $request->file('image_akte');
+                $extension = $file->getClientOriginalName();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/image_akte', $filename);
+                $calon_siswas->image_akte = $filename;
+            }
+            if ($request->hasFile('image_ijazah_tk'))
+            {
+                $file = $request->file('image_ijazah_tk');
+                $extension = $file->getClientOriginalName();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/image_ijazah_tk', $filename);
+                $calon_siswas->image_ijazah_tk = $filename;
+            }
+            if ($request->hasFile('image_pasfoto'))
+            {
+                $file = $request->file('image_pasfoto');
+                $extension = $file->getClientOriginalName();
+                $filename = time() . '.' . $extension;
+                $file->move('uploads/image_pasfoto', $filename);
+                $calon_siswas->image_pasfoto = $filename;
+            }
+            else
+            {
+                return $request;
+                $calon_siswas->image_kk = '';
+                $calon_siswas->image_akte = '';
+                $calon_siswas->image_ijazah_tk = '';
+                $calon_siswas->image_pasfoto = '';
+            }
+            
+            $calon_siswas->nama_siswa = $request->input('nama_siswa');
+            $calon_siswas->tempat_lahir = $request->input('tempat_lahir');
+            $calon_siswas->tanggal_lahir = $request->input('tanggal_lahir');
+            $calon_siswas->alamat_siswa = $request->input('alamat_siswa');
+            $calon_siswas->kd_zonasi = $request->input('kd_zonasi');
+            $calon_siswas->lat_siswa = $request->input('lat_siswa');
+            $calon_siswas->long_siswa = $request->input('long_siswa');
+            $calon_siswas->jenis_kelamin = $request->input('jenis_kelamin');
+            $calon_siswas->pendidikan_sebelumnya = $request->input('pendidikan_sebelumnya');
+            $calon_siswas->nik_siswa = $request->input('nik_siswa');
+            $calon_siswas->no_kk = $request->input('no_kk');
 
-        $calon_siswas->save();
-        $nik_siswa=$request->input('nik_siswa');
-        $request->session()->put('nik_siswa',$nik_siswa);
-        $request->session()->flash('berhasil','Data calon siswa berhasil disimpan');
-        // alihkan halaman ke halaman calon_siswa
-        return redirect('/kesehatan_siswa/create');
+            $calon_siswas->save();
+            $nik_siswa=$request->input('nik_siswa');
+            $request->session()->put('nik_siswa',$nik_siswa);
+            $request->session()->flash('berhasil','data berhasil disimpan');
+            // alihkan halaman ke halaman calon_siswa
+            return redirect('/kesehatan_siswa/create');
+        } 
     }
 
-    public function hapus($id)
+    public static function hapus($id)
     {
         $no_kk=session()->get('no_kk');
         $hh=CalonSiswa::where('nik_siswa',$id)->where('no_kk',$no_kk)->count();
