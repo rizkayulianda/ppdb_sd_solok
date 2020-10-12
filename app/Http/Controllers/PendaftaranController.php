@@ -139,7 +139,17 @@ class PendaftaranController extends Controller
         // return view('pendaftaran.create', compact('sekolah','calon_siswa'));
     }
 
-    public function
+    public function cetakPendaftaran()
+    {
+        $kd_sekolah=auth()->user()->kd_sekolah;
+        $data=DB::table('pendaftaran')
+        ->join('sekolah','pendaftaran.kd_sekolah','=','sekolah.kd_sekolah')
+        ->join('calon_siswa','pendaftaran.nik_siswa','=','calon_siswa.nik_siswa')
+        ->where('pendaftaran.kd_sekolah',$kd_sekolah)
+        ->get();
+        $kertas=PDF::loadview('pendaftaran.cetak',['data'=>$data])->setPaper('A4','potrait');
+        return $kertas->stream('Rekap Pendaftaran.pdf');
+    }
 
     public function cetakData($nik_siswa) //untuk cetak bukti pendaftaran calon siswa
     {

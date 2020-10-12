@@ -96,6 +96,7 @@ Route::group(['middleware'=>'auth:operator'],function()
     
     Route::get('/pendaftaran', 'PendaftaranController@index')->name('index');
     Route::get('/pendaftaran/hapus/{id}','PendaftaranController@hapus');
+    Route::get('/pendaftaran/cetak','PendaftaranController@cetakPendaftaran');
     Route::get('/pendaftaran/terima/{id}','PendaftaranController@terima');
     Route::get('/pendaftaran/pengumuman','PendaftaranController@pengumuman');
     Route::get('/pendaftaran/detail/{nik_siswa}', 'PendaftaranController@detail');
