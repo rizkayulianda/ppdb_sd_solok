@@ -19,7 +19,7 @@
 				<div class="card my-auto mb-4 shadow-sm border-primary">
 					<div class="card-body">
 						<img src="/assets/img/gedung.svg" alt="Pendaftar" class="img-fluid">
-						<h1 class="card-title pricing-card-title">1
+						<h1 class="card-title pricing-card-title">
 							{{PendaftaranController::getTotSekolah()}}
 							<small class="text-muted"> sekolah</small>
 						</h1>
