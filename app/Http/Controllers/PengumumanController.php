@@ -58,7 +58,7 @@ class PengumumanController extends Controller
         $pengumuman=DB::table('pengumuman')
         ->join('calon_siswa','pengumuman.nik_siswa','=','calon_siswa.nik_siswa')
         ->join('sekolah','pengumuman.kd_sekolah','=','sekolah.kd_sekolah')
-        ->select('pengumuman.no_pendaftaran','calon_siswa.nama_siswa','pengumuman.tanggal_pendaftaran','sekolah.nama_sekolah')
+        ->select('pengumuman.no_pendaftaran','calon_siswa.nama_siswa','pengumuman.tanggal_pendaftaran','sekolah.nama_sekolah','pengumuman.status')
         ->where('pengumuman.no_pendaftaran', 'LIKE', "%{$kw}%")
         ->get();
         $data_pengumuman = PDF::loadview('pengumuman.cetak',['pengumuman' => $pengumuman])->setPaper('A4','potrait');

@@ -17,10 +17,10 @@
 					<th>Nama Siswa</th>
 					<th>Tanggal Pendaftaran</th>
 					<th>Nama Sekolah</th>
-					<th>Aksi</th>
 					<th>Umur</th>
 					<th>Jarak rumah ke sekolah</th>
 					<th>Status</th>
+					<th>Aksi</th>
 				</tr>
 				@foreach($pengumuman as $p)
 				<tr>

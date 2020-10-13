@@ -31,7 +31,6 @@
 						<td>{{ $p->umur}}</td>
 						<td>{{ $p->jarak}}</td>
 						<td>{{ $p->status}}</td>
-						<td>Diterima</td>
 					</tr>
 					@endforeach
 				</tbody>

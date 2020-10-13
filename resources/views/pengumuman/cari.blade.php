@@ -12,10 +12,10 @@
                 @include('alertberhasil')
                 <div class="card-body mb-2">
                     <h5 class="card-title">Pengumuman</h5>
-                    <label for="formCari">Cari nama sekolah yang dipilih:</label>
+                    <label for="formCari">Cari nomor pendaftaran anda:</label>
                     <form class="form-inline" action="/pengumuman/mencari" method="post">
                         {{ csrf_field() }}
-                        <input type="text" class="form-control" id="formCari" name="keyword" placeholder="masukkan nama sekolah" required>
+                        <input type="text" class="form-control" id="formCari" name="keyword" placeholder="masukkan nomor pendaftaran" required>
                         <input class="btn btn-primary" type="submit" value="Cari">
                     </form>
                 </div>
