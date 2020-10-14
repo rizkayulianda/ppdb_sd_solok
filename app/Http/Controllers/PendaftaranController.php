@@ -105,9 +105,16 @@ class PendaftaranController extends Controller
             return redirect()->back();
         }
 
-        $calon_siswa = CalonSiswa::with('ortu')->where('calon_siswa.nik_siswa',$nik_siswa)->get();
-        $kesehatan_siswa=DB::table('kesehatan_siswa')->where('nik_siswa',$nik_siswa)->get();
-        return view('pendaftaran.detail',['calon_siswa' => $calon_siswa],['kesehatan_siswa'=>$kesehatan_siswa]);
+        $data=DB::table('pendaftaran')
+        ->join('calon_siswa','pendaftaran.nik_siswa','=','calon_siswa.nik_siswa')
+        ->join('kesehatan_siswa','calon_siswa.nik_siswa','=','kesehatan_siswa.nik_siswa')
+        ->join('ortu','calon_siswa.no_kk','=','ortu.no_kk')
+        ->where('pendaftaran.nik_siswa',$nik_siswa)
+        ->get();
+        return view('pendaftaran.detail',['data' => $data]);
+        // $calon_siswa = CalonSiswa::with('ortu')->where('calon_siswa.nik_siswa',$nik_siswa)->get();
+        // $kesehatan_siswa=DB::table('kesehatan_siswa')->where('nik_siswa',$nik_siswa)->get();
+        // return view('pendaftaran.detail',['calon_siswa' => $calon_siswa],['kesehatan_siswa'=>$kesehatan_siswa]);
     }
     
     public function create($nik_siswa)
