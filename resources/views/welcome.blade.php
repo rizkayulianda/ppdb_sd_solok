@@ -78,7 +78,6 @@
                 <h5 class="card-subtitle mb-3 text-muted font-weight-light">Peraturan Menteri Pendidikan dan Kebudayaan <br>Nomor 44 Tahun 2019 Pasal 5 tentang tentang tata cara PPDB</h5>
                 <p class="card-text ml-2">
                   <i class="fas fa-check"></i>Usia 7-12 tahun<br>
-                  <i class="fas fa-check"></i>Paling rendah usia 5 (lima) tahun 6 (enam) bulan pada tanggal 1 Juli tahun berjalan dibuktikan dengan rekomendasi tertulis dari psikolog profesional atau dewan guru sekolah<br>
                 </p>
                 <h5 class="font-weight-light text-muted">Untuk kelengkapan dokumen dibutuhkan :</h5>
                 <p class="card-text ml-2">

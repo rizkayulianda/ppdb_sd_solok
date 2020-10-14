@@ -17,6 +17,8 @@
 						<th>Nama Sekolah</th>
 						<th>No Pendaftaran</th>
 						<th>Nama Siswa</th>
+						<th>Umur (Tahun)</th>
+						<th>Jarak Rumah ke Sekolah</th>
 						<th>Status</th>
 					</tr>
 				</thead>
@@ -26,7 +28,9 @@
 						<td>{{ $p->nama_sekolah }}</td>
 						<td>{{ $p->no_pendaftaran }}</td>
 						<td>{{ $p->nama_siswa}}</td>
-						<td>Diterima</td>
+						<td>{{ $p->umur}}</td>
+						<td>{{ $p->jarak}}</td>
+						<td>{{ $p->status}}</td>
 					</tr>
 					@endforeach
 				</tbody>

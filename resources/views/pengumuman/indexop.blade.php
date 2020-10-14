@@ -17,7 +17,9 @@
 					<th>Nama Siswa</th>
 					<th>Tanggal Pendaftaran</th>
 					<th>Nama Sekolah</th>
-					<th>Aksi</th>
+					<th>Umur</th>
+					<th>Jarak rumah ke sekolah</th>
+					<th>Status</th>
 				</tr>
 				@foreach($pengumuman as $p)
 				<tr>
@@ -25,9 +27,9 @@
 					<td>{{ $p->nama_siswa}}</td>
 					<td>{{ $p->tanggal_pendaftaran }}</td>
 					<td>{{ $p->nama_sekolah }}</td>
-					<td>
-						<a href="/pengumuman/tarik/{{ $p->no_pendaftaran}}"class="btn btn-danger btn-block">Tarik</a>
-					</td>
+					<td>{{ $p->umur}}</td>
+					<td>{{ $p->jarak}}</td>
+					<td>{{ $p->status}}</td>
 				</tr>
 				@endforeach
 			</table>

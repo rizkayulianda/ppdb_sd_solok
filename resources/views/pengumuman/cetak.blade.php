@@ -30,7 +30,7 @@
 					<td>{{ $p->nama_siswa}}</td>
 					<td>{{ $p->no_pendaftaran }}</td>
 					<td>{{ $p->nama_sekolah }}</td>
-					<td>Diterima</td>
+					<td>{{ $p->status }}</td>
 				</tr>
 				@endforeach
 			</tbody>

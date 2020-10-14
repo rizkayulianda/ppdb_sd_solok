@@ -9,24 +9,55 @@
 <body id="page-top">
 	@php
 		use App\Http\Controllers\PendaftaranController;
-	@endphp
+		@endphp
 	@include('navbarop')
 	<section class="page-section mt-4 bg-primary">
 		<div class="container rounded-lg bg-white p-5">
-			<div role="alert" class="alert alert-primary">
-				@include('alertberhasil')
-				<h5 class="alert-heading">Ketentuan</h5>
-				<p class="text-lg">
+			@include('alertberhasil')
+			<h1 class="text-center">Data Pendaftaran</h1><br> 
+			<div class="card-deck mb-4 text-center">
+				<div class="card my-auto mb-4 shadow-sm border-primary">
+					<div class="card-body">
+						<img src="/assets/img/gedung.svg" alt="Pendaftar" class="img-fluid">
+						<h1 class="card-title pricing-card-title">
+							{{PendaftaranController::getTotSekolah()}}
+							<small class="text-muted"> Sekolah</small>
+						</h1>
+						<p>Telah Terdaftar Di Website Ini</p>
+					</div>
+				</div>
+				<div class="card my-auto mb-4 shadow-sm border-primary">
+					<div class="card-body">
+						<img src="/assets/img/decision.svg" alt="Pendaftar" class="img-fluid">
+						<h1 class="card-title pricing-card-title">
+							{{PendaftaranController::getTotPendaftar()}}
+							<small class="text-muted"> Calon Peserta Didik</small>
+						</h1>
+						<p>Telah Diterima Di Seluruh Sekolah</p>
+					</div>
+				</div>
+				<div class="card my-auto mb-4 shadow-sm border-primary">
+					<div class="card-body">
+							<img src="/assets/img/form.svg" alt="Pendaftar" class="img-fluid">
+							<h1 class="card-title pricing-card-title">
+								{{PendaftaranController::getMyPendaftar()}}
+								<small class="text-muted"> Calon Peserta Didik</small>
+							</h1>
+							<p>Telah Mendaftar Di Dekolah Anda </p>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<div class="card-body">
+					<h5 class="alert-heading">Ketentuan</h5>
 					<ul style="list-style-type:disc;">
 						<li><strong>Klik nama siswa untuk melihat detail data siswa</strong></li>
-						<li><strong>Tombol "tolak" untuk menghapus data pendaftaran</strong></li>
-						<li><strong>Data yang masuk ke tabel pengumuman adalah data yang berstatus "Diterima"</strong></li>
+						<li><strong>Siswa yang berstatus 'Diterima' telah lulus seleksi jarak umur selama kuota utama sekolah anda masih tersedia </strong></li>
+						<li><strong>Siswa yang berstatus 'Cadangan' merupakan pendaftar yang lulus seleksi namun kuota utama penuh dan pendaftar yang berjarak lebih dari 3km dari sekolah</strong></li>
 						<li><strong>Periksa ulang kembali data calon siswa anda sebelum ditampilkan ke tabel pengumuman</strong></li>
 					</ul>
-				</p>
+				</div>
 			</div><br>
-			<h2 class="text-center">Data Pendaftaran</h2>
-			<br/>
 			<table class="table table-striped table-bordered" id="tpendaftaran">
 				<thead>
 
@@ -36,7 +67,7 @@
 						<th>Tanggal Pendaftaran</th>
 						<th>Jarak rumah ke sekolah (Meter)</th>
 						<th>Status</th>
-						<th>Aksi</th>
+						{{-- <th>Aksi</th> --}}
 					</tr>
 				</thead>
 				<tbody>
@@ -51,15 +82,23 @@
 							@endforeach 
 						</td>
 						<td>{{ $p->status }}</td>
-						<td>
+						{{-- <td>
 							<a href="/pendaftaran/terima/{{ $p->no_pendaftaran }}" class="btn btn-primary">Terima</a>
 							<a href="/pendaftaran/hapus/{{ $p->no_pendaftaran }}"class="btn btn-danger ">Tolak</a>
-						</td>
+						</td> --}}
 					</tr>
 					@endforeach
 				</tbody>
 			</table><br>
-			<a href="/pendaftaran/pengumuman" class="btn btn-lg btn-warning">Tampilkan Ke Tabel Pengumuman</a>
+			<div class="row">
+				<div class="col-sm-5">
+					<a href="/pendaftaran/pengumuman" class="btn btn-lg btn-warning btn-block"><i class="fas fa-file-alt mr-2"></i>Tampilkan Ke Tabel Pengumuman</a>
+				</div>
+				<div class="col-sm-2"></div>
+				<div class="col-sm-5">
+					<a href="/pendaftaran/cetak" class="btn btn-lg btn-primary btn-block"><i class="fas fa-print"></i> Print Rekapitulasi Pendaftaran</a>
+				</div>
+			</div>
 		<br>
 		</div>	
 	</section>

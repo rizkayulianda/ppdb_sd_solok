@@ -81,7 +81,15 @@
                                         <form action="/pendaftaran/store" method="post">
                                             {{ csrf_field() }}
                                             <input type="hidden" name="nik_siswa" value="{{$item->nik_siswa}}" readonly>
+                                            <input type="hidden" name="tanggal_lahir" value="{{$item->tanggal_lahir}}" readonly>
                                             <input type="hidden" name="kd_sekolah" value="{{$p->kd_sekolah}}" readonly>
+                                            <input 
+                                            type="hidden" 
+                                            name="jarak" 
+                                            value="{{PendaftaranController::getJarak($p->lat_sekolah, $p->long_sekolah, $item->lat_siswa, $item->long_siswa)}}" 
+                                            readonly>
+                                            <input type="hidden" name="utama" value="{{$p->utama}}" readonly>
+                                            <input type="hidden" name="cadangan" value="{{$p->cadangan}}" readonly>
                                             <button type="submit" class="btn btn-primary btn-lg">Mendaftar</button>
                                         </form>
                                         @endforeach
