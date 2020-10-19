@@ -14,7 +14,7 @@
             <h1 class="text-center"> Data Pendaftar</h1>
             <br/>
             <table class="table table-bordered table-striped table-hover">
-                @foreach($calon_siswa as $p)
+                @foreach($data as $p)
                 <tr>
                     <th colspan="3" > 
                         <h3> Data Pribadi
@@ -26,12 +26,8 @@
                     <td>{{ $p->nama_siswa }}</td>
                 </tr>
                 <tr>
-                    <th>Tempat Lahir : </th>
-                    <td>{{ $p->tempat_lahir }}</td>
-                </tr>
-                <tr>
-                    <th>Tanggal Lahir : </th>
-                    <td>{{ $p->tanggal_lahir }}</td>
+                    <th>Tempat ,Tanggal Lahir : </th>
+                    <td>{{ $p->tempat_lahir }} , {{$p->tanggal_lahir}} ({{$p->umur}} tahun)</td>
                 </tr>
                 <tr>
                     <th>Alamat : </th>
@@ -84,36 +80,34 @@
                 </tr>
             </table>
             <table class="table table-bordered table-striped table-hover">
-                @foreach($kesehatan_siswa as $k)
                 <th colspan="3" > 
                     <h3> Data Kesehatan Siswa
                     </h3>
                 </th>
                 <tr>
                     <th>Tinggi Badan : </th>
-                    <td>{{ $k->tinggi }}</td>
+                    <td>{{ $p->tinggi }}</td>
                 </tr>
                 <tr>
                     <th>Berat Badan : </th>
-                    <td>{{ $k->berat }}</td>
+                    <td>{{ $p->berat }}</td>
                 </tr>
                 <tr>
                     <th>Penglihatan : </th>
-                    <td>{{ $k->penglihatan }}</td>
+                    <td>{{ $p->penglihatan }}</td>
                 </tr>
                 <tr>
                     <th>Pendengaran : </th>
-                    <td>{{ $k->pendengaran }}</td>
+                    <td>{{ $p->pendengaran }}</td>
                 </tr>
                 <tr>
                     <th>Gigi : </th>
-                    <td>{{ $k->gigi }}</td>
+                    <td>{{ $p->gigi }}</td>
                 </tr>
                 <tr>
                     <th>Riwayat Penyakit : </th>
-                    <td>{{ $k->riwayat_penyakit }}</td>
+                    <td>{{ $p->riwayat_penyakit }}</td>
                 </tr>
-                @endforeach
             </table>
             <table class="table table-bordered table-striped table-hover">
                 <th colspan="3" > 
@@ -122,46 +116,44 @@
                 </th>
                 <tr>
                     <th>Nama Ayah : </th>
-                    <td>{{ $p->ortu->nama_ayah }}</td>
+                    <td>{{ $p->nama_ayah }}</td>
                 </tr>
                 <tr>
                     <th>Nama Ibu : </th>
-                    <td>{{ $p->ortu->nama_ibu }}</td>
+                    <td>{{ $p->nama_ibu }}</td>
                 </tr>
                 <tr>
                     <th>Pekerjaan Ayah : </th>
-                    <td>{{ $p->ortu->pekerjaan_ayah }}</td>
+                    <td>{{ $p->pekerjaan_ayah }}</td>
                 </tr>
                 <tr>
                     <th>Pekerjaan Ibu : </th>
-                    <td>{{ $p->ortu->pekerjaan_ibu }}</td>
+                    <td>{{ $p->pekerjaan_ibu }}</td>
                 </tr>
                 <tr>
                     <th>Pendidikan Ayah : </th>
-                    <td>{{ $p->ortu->pendidikan_ayah }}</td>
+                    <td>{{ $p->pendidikan_ayah }}</td>
                 </tr>
                 <tr>
                     <th>Pendidikan Ibu : </th>
-                    <td>{{ $p->ortu->pendidikan_ibu }}</td>
+                    <td>{{ $p->pendidikan_ibu }}</td>
                 </tr>
                 <tr>
                     <th>Alamat Orang Tua : </th>
-                    <td>{{ $p->ortu->alamat_ortu }}</td>
+                    <td>{{ $p->alamat_ortu }}</td>
                 </tr>
                 <tr>
                     <th>No HP Orang Tua : </th>
-                    <td>{{ $p->ortu->no_hp_ortu }}</td>
+                    <td>{{ $p->no_hp_ortu }}</td>
                 </tr>
                 <tr>
                     <th>Nomor KK : </th>
-                    <td>{{ $p->ortu->no_kk }}</td>
+                    <td>{{ $p->no_kk }}</td>
                 </tr>
-            @endforeach
             </table>
             <div id="mapid" style="width:100%;height:380px;"></div>
         </div>
     </section>  
-    @foreach ($calon_siswa as $p)
     <script>
         var map = L.map('mapid').setView([{{$p->lat_siswa}}, {{$p->long_siswa}}], 16);
 

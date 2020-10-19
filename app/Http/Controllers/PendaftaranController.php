@@ -105,9 +105,16 @@ class PendaftaranController extends Controller
             return redirect()->back();
         }
 
-        $calon_siswa = CalonSiswa::with('ortu')->where('calon_siswa.nik_siswa',$nik_siswa)->get();
-        $kesehatan_siswa=DB::table('kesehatan_siswa')->where('nik_siswa',$nik_siswa)->get();
-        return view('pendaftaran.detail',['calon_siswa' => $calon_siswa],['kesehatan_siswa'=>$kesehatan_siswa]);
+        $data=DB::table('pendaftaran')
+        ->join('calon_siswa','pendaftaran.nik_siswa','=','calon_siswa.nik_siswa')
+        ->join('kesehatan_siswa','calon_siswa.nik_siswa','=','kesehatan_siswa.nik_siswa')
+        ->join('ortu','calon_siswa.no_kk','=','ortu.no_kk')
+        ->where('pendaftaran.nik_siswa',$nik_siswa)
+        ->get();
+        return view('pendaftaran.detail',['data' => $data]);
+        // $calon_siswa = CalonSiswa::with('ortu')->where('calon_siswa.nik_siswa',$nik_siswa)->get();
+        // $kesehatan_siswa=DB::table('kesehatan_siswa')->where('nik_siswa',$nik_siswa)->get();
+        // return view('pendaftaran.detail',['calon_siswa' => $calon_siswa],['kesehatan_siswa'=>$kesehatan_siswa]);
     }
     
     public function create($nik_siswa)
@@ -148,7 +155,7 @@ class PendaftaranController extends Controller
         ->where('pendaftaran.kd_sekolah',$kd_sekolah)
         ->get();
         $kertas=PDF::loadview('pendaftaran.cetak',['data'=>$data])->setPaper('A4','potrait');
-        return $kertas->stream('rekap_pendaftaran.pdf');
+        return $kertas->stream('Rekap_Pendaftaran.pdf');
     }
 
     public function cetakData($nik_siswa) //untuk cetak bukti pendaftaran calon siswa
@@ -174,7 +181,20 @@ class PendaftaranController extends Controller
     }
 
     public function store(Request $request)
-    {                   
+    {   
+        //mengecek apakah siswa tidak mendaftar di sekolah yang sama
+        $a_nik_siswa=$request->nik_siswa;
+        $a_kd_sekolah=$request->kd_sekolah;
+        $qc=DB::table('pendaftaran')
+        ->where('kd_sekolah',$a_kd_sekolah)
+        ->where('nik_siswa',$a_nik_siswa)
+        ->count();
+        if ($qc!=0) {
+            $request->session()->flash('peringatan','maaf, anda telah melakukan pendaftaran di sekolah ini, silahkan mendaftar di sekolah lain yang jaraknya terdekat dari sekolah anda');
+            return redirect()->back();
+        }
+
+
         //jumlah cadangan dan kuota yang dibutuhkan sekolah yng sdg di proses
         $utama=$request->utama;
         $cadangan=$request->cadangan;
@@ -236,6 +256,39 @@ class PendaftaranController extends Controller
         }
     }
 
+    public function hapus($id)
+    {
+        $kd_sekolah_login=auth()->user()->kd_sekolah;
+        $hh_kd_sekolah=Pendaftaran::where('kd_sekolah',$kd_sekolah_login)->where('no_pendaftaran',$id)->count();
+        
+        if ($hh_kd_sekolah==0) {
+            session()->flash('peringatan','Permintaan tidak dapat diproses!');
+            return redirect()->back();
+        }
+
+        // menghapus data pendaftaran berdasarkan id yang dipilih
+        DB::table('pendaftaran')->where('no_pendaftaran',$id)->delete();
+            
+        // alihkan halaman ke halaman pendaftaran
+        return redirect('/pendaftaran');
+    }
+
+    public function terima($id)
+    {
+        $kd_sekolah_login=auth()->user()->kd_sekolah;
+        $hh_kd_sekolah=Pendaftaran::where('kd_sekolah',$kd_sekolah_login)->where('no_pendaftaran',$id)->count();
+        if ($hh_kd_sekolah==0) {
+            session()->flash('peringatan','Permintaan tidak dapat diproses!');
+            return redirect()->back();
+        }
+        
+        //fungsi untuk merubah status menjadi diterima
+        DB::table('pendaftaran')->where('no_pendaftaran',$id)->update([
+            'status' => "Diterima"
+        ]);
+        return redirect('/pendaftaran');
+    }
+
     public function pengumuman()
     {
         $kd_sekolah=auth()->user()->kd_sekolah;
@@ -270,7 +323,7 @@ class PendaftaranController extends Controller
     public function getUmur($bday)
     {//fungsi untuk menghitung umur berdasarkan tanggal lahir 
         $bdays = new DateTime($bday);
-        $today = new Datetime(date('Y-m-d'));
+        $today = new Datetime(date('m-d-Y'));
         $diff = $today->diff($bdays);
         $age=$diff->y;
         return $age;

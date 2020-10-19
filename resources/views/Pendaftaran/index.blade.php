@@ -66,6 +66,7 @@
 						<th>Nama Siswa</th>
 						<th>Tanggal Pendaftaran</th>
 						<th>Jarak rumah ke sekolah (Meter)</th>
+						<th>Umur</th>
 						<th>Status</th>
 						{{-- <th>Aksi</th> --}}
 					</tr>
@@ -81,6 +82,7 @@
 								{{PendaftaranController::getJarak($s->lat_sekolah, $s->long_sekolah, $p->lat_siswa, $p->long_siswa)}}
 							@endforeach 
 						</td>
+						<td>{{ $p->umur }}</td>
 						<td>{{ $p->status }}</td>
 						{{-- <td>
 							<a href="/pendaftaran/terima/{{ $p->no_pendaftaran }}" class="btn btn-primary">Terima</a>

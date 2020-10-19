@@ -1,0 +1,57 @@
+Manual Instalansi Website PPDB SD Negeri di Kab Solok
+
+- Operator melakukan registrasi pada website PPDB SD Solok kemudian langsung dengan cara
+  1. Operator membuka halaman website PPDB SD Solok yaitu ...
+  2. Klik Operator pada navbar
+  3. klik link "disini" untuk akses halaman registrasi operator
+  4. Input data operator pada form yang tersedia kemudian klik "simpan data" untuk menyimpan data
+  5. Setelah berhasil menyimpan data operator langsung melakukan login dengan kembali mengklik button operator pada navbar
+  6. masukkan NPSN sekolah dan password yang telah diinput saat registrasi
+
+- Operator mendaftarkan sekolahnya pada website dengan mengisi data-data sekolah sesuai form yang tersedia dengan cara
+  1. Setelah berhasil login akan tampil halaman form untuk mengisi data sekolah
+  2. operator mengisi data sekolah sesuai form yang tersedia
+  3. klik button "simpan data" untuk menyimpan data sekolah
+
+- Orang tua atau User melakukan registrasi pada website PPDB SD Kabupaten Solok kemudian langsung login
+  1. Orang tua membuka halaman website PPDB SD Solok yitu ...
+  2. Klik registrasi pada navbar
+  3. input data user pada form registrasi kemudian klik "simpan data" untuk menyimpan data
+  4. setelah berhasil menyimpan data orang tua langsug melakukan login dengan mengklik button login pada navbar
+  5. masukkan no hp dan password yang telah diinput saat registrasi
+
+- Orang tua mengisi data Orang tua sesuai form yang tersedia
+  1. setelah berhasil login akan tampil halaman form untuk mengisi data orang tua
+  2. user mengisi data orang tua sesuai form yang tersedia
+  3. klik button "simpan data" untuk menyimpan data
+
+- Orang tua mengisi data Calon Siswa yang akan didaftarkan sesuai form yang tersedia
+  1. setelah berhasil menyimpan data orang tua akan tampil halaman form untuk mengisi data calon siswa
+  2. user mengisi data calon siswa sesuai form yang tersedia
+  3. klik button "simpan data" untuk menyimpan data
+
+- Setelah mengisi data calon siswa dilanjutkan dengan mengisi data kesehatan calon siswa
+  1. setelah berhasil menyimpan data calon siswa akan tampil halaman form untuk mengisi data kesehatan siswa
+  2. user mengisi data kesehatan siswa sesuai form yang tersedia
+  3. klik button "simpan data" untuk menyimpan data
+
+- Setelah semua data terisi, user melakukan pendaftaran dengan memilih maksimal dua sekolah
+  1. klik button "Daftar Sekolah" pada halaman index calon siswa
+  2. klik button "Pilih Sekolah" kemudian akan tampil halaman untuk memilih sekolah
+  3. klik button "Mendaftar" untuk memilih sekolah 
+
+- Setelah orang tua atau user berhasil mendaftarkan calon siswa, operator akan mengolah data tersebut dan melakukan verifikasi dan validasi
+  1. setelah operator login tampil halaman index pendaftaran
+  2. operator mengecek data pendaftaran dengan melihat detail data calon siswa dengan mengklik link pada nama siswa
+  3. klik button "Print Rekapitulasi Pendaftaran" untuk mendownload data rekap pendaftaran dalam bentuk pdf
+
+- Operator mengeluarkan hasil pengumuman calon siswa yang telah diterima di sekolahnya
+  1. klik button "Tampilkan ke Tabel Pengumuman"
+  2. klik button "Cetak/Print" untuk mendownload data pengumuman dalam bentuk pdf
+
+- Orang tua melihat hasil pengumuman di webiste dengan cara mencari nama sekolah dan melihat hasil pengumuman tersebut 
+  1. setelah orang tua login tampil home
+  2. klik button "Pengumuman" pada navbar
+  3. masukkan nomor pendaftaran pada halaman pencarian
+  4. klik button "Cari"
+  5. klik button "Cetak/Print" untuk mendownload data pengumuman dalam bentuk pdf
