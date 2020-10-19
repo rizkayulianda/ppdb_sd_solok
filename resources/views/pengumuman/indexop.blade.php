@@ -20,6 +20,10 @@
 					<th>Umur</th>
 					<th>Jarak rumah ke sekolah</th>
 					<th>Status</th>
+<<<<<<< HEAD
+=======
+					<th>Aksi</th>
+>>>>>>> 6b3d0f026526f3447a71020d1f602fdef8fbe535
 				</tr>
 				@foreach($pengumuman as $p)
 				<tr>
@@ -30,6 +34,12 @@
 					<td>{{ $p->umur}}</td>
 					<td>{{ $p->jarak}}</td>
 					<td>{{ $p->status}}</td>
+<<<<<<< HEAD
+=======
+					<td>
+						<a href="/pengumuman/tarik/{{ $p->no_pendaftaran}}"class="btn btn-danger btn-block">Tarik</a>
+					</td>
+>>>>>>> 6b3d0f026526f3447a71020d1f602fdef8fbe535
 				</tr>
 				@endforeach
 			</table>

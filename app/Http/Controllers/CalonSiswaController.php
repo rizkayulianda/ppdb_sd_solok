@@ -163,7 +163,11 @@ class CalonSiswaController extends Controller
     {   
         $date= $request->input('tanggal_lahir');
         $bday = new DateTime($date);
+<<<<<<< HEAD
         $today = new Datetime(date('Y-m-d'));
+=======
+        $today = new Datetime(date('m-d-Y'));
+>>>>>>> 6b3d0f026526f3447a71020d1f602fdef8fbe535
         $diff = $today->diff($bday);
         $age=$diff->y;
         if($age>12 || $age<6)

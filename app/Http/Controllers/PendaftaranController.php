@@ -155,7 +155,11 @@ class PendaftaranController extends Controller
         ->where('pendaftaran.kd_sekolah',$kd_sekolah)
         ->get();
         $kertas=PDF::loadview('pendaftaran.cetak',['data'=>$data])->setPaper('A4','potrait');
+<<<<<<< HEAD
         return $kertas->stream('Rekap_Pendaftaran.pdf');
+=======
+        return $kertas->stream('Rekap Pendaftaran.pdf');
+>>>>>>> 6b3d0f026526f3447a71020d1f602fdef8fbe535
     }
 
     public function cetakData($nik_siswa) //untuk cetak bukti pendaftaran calon siswa
@@ -181,6 +185,7 @@ class PendaftaranController extends Controller
     }
 
     public function store(Request $request)
+<<<<<<< HEAD
     {   
         //mengecek apakah siswa tidak mendaftar di sekolah yang sama
         $a_nik_siswa=$request->nik_siswa;
@@ -195,6 +200,9 @@ class PendaftaranController extends Controller
         }
 
 
+=======
+    {                   
+>>>>>>> 6b3d0f026526f3447a71020d1f602fdef8fbe535
         //jumlah cadangan dan kuota yang dibutuhkan sekolah yng sdg di proses
         $utama=$request->utama;
         $cadangan=$request->cadangan;

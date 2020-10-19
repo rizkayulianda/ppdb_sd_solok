@@ -16,7 +16,11 @@
 				</h5>
 				<h4 class="text-center mb-4">PPDB Sekolah Dasar Kabupaten Solok</h4>
 			<hr><br>
+<<<<<<< HEAD
 			<h5 class="text-center mb-3">Rekapitulasi Hasil Pendaftaran</h5>
+=======
+			<h5 class="text-center mb-3">Rekapitulasi hasil pendaftar</h5>
+>>>>>>> 6b3d0f026526f3447a71020d1f602fdef8fbe535
             <p class="text-left">Total semua sekolah : <strong>{{PendaftaranController::getTotSekolah()}}</strong></p>
             <p class="text-left">Total semua pendaftar : <strong>{{PendaftaranController::getTotPendaftar()}}</strong></p>
             <p class="text-left">Total pendaftar di sekolah anda : <strong>{{PendaftaranController::getMyPendaftar()}}</strong></p>

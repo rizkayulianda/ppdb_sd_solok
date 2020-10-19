@@ -17,8 +17,13 @@
 						<th>Nama Sekolah</th>
 						<th>No Pendaftaran</th>
 						<th>Nama Siswa</th>
+<<<<<<< HEAD
 						<th>Umur (Tahun)</th>
 						<th>Jarak Rumah ke Sekolah</th>
+=======
+						<th>Umur</th>
+						<th>Jarak rumah ke sekolah</th>
+>>>>>>> 6b3d0f026526f3447a71020d1f602fdef8fbe535
 						<th>Status</th>
 					</tr>
 				</thead>
