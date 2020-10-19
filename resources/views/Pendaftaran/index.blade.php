@@ -21,15 +21,9 @@
 						<img src="/assets/img/gedung.svg" alt="Pendaftar" class="img-fluid">
 						<h1 class="card-title pricing-card-title">
 							{{PendaftaranController::getTotSekolah()}}
-<<<<<<< HEAD
 							<small class="text-muted"> Sekolah</small>
 						</h1>
 						<p>Telah Terdaftar Di Website Ini</p>
-=======
-							<small class="text-muted"> sekolah</small>
-						</h1>
-						<p>Telah terdaftar di website ini</p>
->>>>>>> 6b3d0f026526f3447a71020d1f602fdef8fbe535
 					</div>
 				</div>
 				<div class="card my-auto mb-4 shadow-sm border-primary">
@@ -37,15 +31,9 @@
 						<img src="/assets/img/decision.svg" alt="Pendaftar" class="img-fluid">
 						<h1 class="card-title pricing-card-title">
 							{{PendaftaranController::getTotPendaftar()}}
-<<<<<<< HEAD
 							<small class="text-muted"> Calon Peserta Didik</small>
 						</h1>
 						<p>Telah Diterima Di Seluruh Sekolah</p>
-=======
-							<small class="text-muted"> calon peserta</small>
-						</h1>
-						<p>telah mendaftar dan diterima</p>
->>>>>>> 6b3d0f026526f3447a71020d1f602fdef8fbe535
 					</div>
 				</div>
 				<div class="card my-auto mb-4 shadow-sm border-primary">
@@ -53,15 +41,9 @@
 							<img src="/assets/img/form.svg" alt="Pendaftar" class="img-fluid">
 							<h1 class="card-title pricing-card-title">
 								{{PendaftaranController::getMyPendaftar()}}
-<<<<<<< HEAD
 								<small class="text-muted"> Calon Peserta Didik</small>
 							</h1>
 							<p>Telah Mendaftar Di Dekolah Anda </p>
-=======
-								<small class="text-muted"> calon peserta </small>
-							</h1>
-							<p>total siswa yang mendaftar di sekolah anda </p>
->>>>>>> 6b3d0f026526f3447a71020d1f602fdef8fbe535
 					</div>
 				</div>
 			</div>
